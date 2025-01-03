@@ -14,7 +14,7 @@ export default function Index() {
 
   return (
     <>
-      <Navbar transparent />
+      <Navbar />
       <main>
         {/* Hero Section */}
         <div className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen">

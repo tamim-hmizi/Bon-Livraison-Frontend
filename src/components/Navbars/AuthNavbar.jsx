@@ -5,7 +5,6 @@ import UserDropdown from "../Dropdowns/UserDropdown";
 
 export default function AuthNavbar() {
   const [navbarOpen, setNavbarOpen] = useState(false);
-
   const user = useSelector((state) => state.user?.currentUser);
 
   return (
@@ -48,6 +47,22 @@ export default function AuthNavbar() {
                   <Link to="/">Accueil</Link>
                 )}
               </li>
+
+              {user && (
+                <li className="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
+                  <Link
+                    to={
+                      user.role === "user"
+                        ? "/user/bl"
+                        : user.role === "responsable"
+                        ? "/responsable/bl"
+                        : "/"
+                    }
+                  >
+                    Bl
+                  </Link>
+                </li>
+              )}
 
               {user ? (
                 <li className="relative">

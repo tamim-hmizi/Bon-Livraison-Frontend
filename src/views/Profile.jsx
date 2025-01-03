@@ -120,6 +120,8 @@ export default function Profile() {
                       <i className="fas fa-briefcase mr-2 text-lg text-gray-400"></i>
                       {user?.role === "admin"
                         ? "Administrateur"
+                        : user?.role === "responsable"
+                        ? "Responsable"
                         : "Utilisateur"}
                     </div>
                     <div className="mb-2 text-gray-600">

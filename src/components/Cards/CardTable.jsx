@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { FaTrashAlt } from "react-icons/fa"; // Icône de la corbeille pour la suppression
+import { FaTrashAlt } from "react-icons/fa";
 
 export default function CardTable() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Récupérer tous les utilisateurs depuis le backend
     axios
       .get("http://localhost:3000/users/")
       .then((response) => setUsers(response.data.users))
@@ -21,11 +20,9 @@ export default function CardTable() {
   }, []);
 
   const deleteUser = (userId) => {
-    // Envoyer une requête pour supprimer l'utilisateur
     axios
       .delete(`http://localhost:3000/users/${userId}`)
       .then(() => {
-        // Supprimer l'utilisateur de la liste
         setUsers(users.filter((user) => user._id !== userId));
       })
       .catch((err) =>
@@ -33,6 +30,27 @@ export default function CardTable() {
           err.response
             ? err.response.data.message
             : "Erreur lors de la suppression de l'utilisateur"
+        )
+      );
+  };
+
+  const toggleRole = (userId) => {
+    axios
+      .put(`http://localhost:3000/users/role/${userId}`)
+      .then((response) => {
+        setUsers(
+          users.map((user) =>
+            user._id === userId
+              ? { ...user, role: response.data.user.role }
+              : user
+          )
+        );
+      })
+      .catch((err) =>
+        setError(
+          err.response
+            ? err.response.data.message
+            : "Erreur lors de la modification du rôle de l'utilisateur"
         )
       );
   };
@@ -93,6 +111,17 @@ export default function CardTable() {
                     {user.phone}
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm p-4 text-right">
+                    <button
+                      className={`w-32 px-4 py-2 mr-5 rounded-full text-white ${
+                        user.role === "user"
+                          ? "bg-green-500 hover:bg-green-600"
+                          : "bg-purple-500 hover:bg-purple-600"
+                      }`}
+                      onClick={() => toggleRole(user._id)}
+                    >
+                      {user.role === "user" ? "Utilisateur" : "Responsable"}
+                    </button>
+
                     <button
                       className="text-red-500 hover:text-red-700"
                       onClick={() => deleteUser(user._id)}

@@ -14,6 +14,8 @@ import Login from "./views/auth/Login";
 import Register from "./views/auth/Register";
 import Profile from "./views/Profile";
 import Index from "./views/Index";
+import UserBl from "./views/UserBl";
+import ResponsableBl from "./views/ResponsableBl";
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
           <Route path="register" element={<Register />} />
         </Route>
         <Route path="/profile" element={<Profile />} />
+        <Route path="/user/bl" element={<UserBl />} />
+        <Route path="/responsable/bl" element={<ResponsableBl />} />
         <Route path="/" element={<Index />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
