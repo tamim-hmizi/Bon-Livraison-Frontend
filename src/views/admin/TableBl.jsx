@@ -1,4 +1,4 @@
-import CardTable from "../../components/Cards/CardTable";
+
 import BlTable from "../../components/Cards/BlTable";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -14,10 +14,9 @@ export default function Tables() {
     <>
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12 px-4">
-          <CardTable />
+          <BlTable />
         </div>
       </div>
-      
     </>
   );
 }

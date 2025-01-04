@@ -10,6 +10,8 @@ import Auth from "./layouts/Auth";
 import "./index.css";
 import Dashboard from "./views/admin/Dashboard";
 import Tables from "./views/admin/Tables";
+import TableBl from "./views/admin/TableBl";
+
 import Login from "./views/auth/Login";
 import Register from "./views/auth/Register";
 import Profile from "./views/Profile";
@@ -22,8 +24,9 @@ function App() {
     <Router>
       <Routes>
         <Route path="/admin/*" element={<Admin />}>
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="dashboard/*" element={<Dashboard />} />
           <Route path="tables" element={<Tables />} />
+          <Route path="tablebl" element={<TableBl />} />
         </Route>
         <Route path="/auth/*" element={<Auth />}>
           <Route path="login" element={<Login />} />

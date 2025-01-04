@@ -98,6 +98,18 @@ export default function Sidebar() {
                   Gestion Utilisateur
                 </Link>
               </li>
+
+              <li className="items-center">
+                <Link
+                  className={linkClass("/admin/tablebl")}
+                  to="/admin/tablebl"
+                  onClick={() => handleSetActiveRoute("/admin/tablebl")}
+                >
+                  <i className={`${iconClass("/admin/tablebl")} fa-table`}></i>{" "}
+                  Gestion Bon Livraison
+               </Link>
+              </li>
+              
             </ul>
           </div>
         </div>

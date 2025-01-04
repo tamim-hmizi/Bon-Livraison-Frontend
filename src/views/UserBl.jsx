@@ -62,34 +62,27 @@ function UserBl() {
   const parseScanData = (data) => {
     try {
       const parsedData = {};
-      const refMatch = data.match(/referance:\s*([^\s]+)/i);
-      const clientCodeMatch = data.match(/codeClient:\s*([^\s]+)/i);
-
+      const refMatch = data.match(/refBL\s*:\s*([^\s]+)/i); // Adjusted regex for refBL
+      const clientCodeMatch = data.match(/codeClient\s*:\s*([^\s]+)/i); // Adjusted regex for codeClient
+  
       if (refMatch) parsedData.Referance = refMatch[1];
       if (clientCodeMatch) parsedData.codeClient = clientCodeMatch[1];
-
-      const articlesSection = data.match(/articles:\s*([\s\S]*)/i);
+  
+      // Matching articles in the format: PTEVD2 1,62KG 4
+      const articlesSection = data.match(/([A-Za-z0-9]+)\s+([0-9,\.]+KG)\s+([0-9]+)/g); 
       if (articlesSection) {
-        const lines = articlesSection[1]
-          .split("\n")
-          .map((line) => line.trim())
-          .filter((line) => line && !line.startsWith("referance"));
-
-        const articles = lines.map((line) => {
-          const [referance, poids, nombre] = line.split(/\s+/);
+        const articles = articlesSection.map((line) => {
+          const parts = line.trim().split(/\s+/);
           return {
-            referance,
-            poids,
-            nombre: parseInt(nombre, 10),
+            referance: parts[0],
+            poids: parts[1],
+            nombre: parseInt(parts[2], 10),
           };
         });
-
         parsedData.articles = articles;
       }
-
-      return parsedData.Referance &&
-        parsedData.codeClient &&
-        parsedData.articles
+  
+      return parsedData.Referance && parsedData.codeClient && parsedData.articles
         ? parsedData
         : null;
     } catch (err) {
@@ -97,7 +90,7 @@ function UserBl() {
       return null;
     }
   };
-
+  
   const checkIfBlExists = async (parsedData) => {
     try {
       const response = await axios.get(
