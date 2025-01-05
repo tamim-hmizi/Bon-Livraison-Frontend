@@ -18,7 +18,7 @@ import Profile from "./views/Profile";
 import Index from "./views/Index";
 import UserBl from "./views/UserBl";
 import ResponsableBl from "./views/ResponsableBl";
-
+import Bl from "./views/Bl";
 function App() {
   return (
     <Router>
@@ -35,6 +35,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/user/bl" element={<UserBl />} />
         <Route path="/responsable/bl" element={<ResponsableBl />} />
+        <Route path="/bl/:id" element={<Bl />} />
         <Route path="/" element={<Index />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

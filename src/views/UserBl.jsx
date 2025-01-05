@@ -16,7 +16,12 @@ function UserBl() {
   const [blData, setBlData] = useState(null);
   const [etatLivreur, setEtatLivreur] = useState("");
   const [etatChauffeur, setEtatChauffeur] = useState("");
-  const [isReclamationFormOpen, setIsReclamationFormOpen] = useState(false); // Reclamation form state
+  const [isReclamationFormOpen, setIsReclamationFormOpen] = useState(false);
+  const [etatLivraison, setEtatLivraison] = useState("");
+  const [confirmation, setConfirmation] = useState(null);
+  const [reclamationImage, setReclamationImage] = useState(null);
+  const [reclamationType, setReclamationType] = useState("");
+
   const user = useSelector((state) => state.user.currentUser);
   const navigate = useNavigate();
   useEffect(() => {
@@ -24,6 +29,7 @@ function UserBl() {
     if (user && user.role === "responsable") navigate("/responsable/bl");
     if (!user) navigate("/auth/login");
   });
+
   const openModal = () => {
     setIsModalOpen(true);
     setIsScannerActive(true);
@@ -32,7 +38,7 @@ function UserBl() {
     setBlData(null);
     setEtatLivreur("");
     setEtatChauffeur("");
-    setIsReclamationFormOpen(false); // Ensure reclamation form is closed initially
+    setIsReclamationFormOpen(false);
   };
 
   const closeModal = () => {
@@ -64,12 +70,14 @@ function UserBl() {
       const parsedData = {};
       const refMatch = data.match(/refBL\s*:\s*([^\s]+)/i); // Adjusted regex for refBL
       const clientCodeMatch = data.match(/codeClient\s*:\s*([^\s]+)/i); // Adjusted regex for codeClient
-  
+
       if (refMatch) parsedData.Referance = refMatch[1];
       if (clientCodeMatch) parsedData.codeClient = clientCodeMatch[1];
-  
+
       // Matching articles in the format: PTEVD2 1,62KG 4
-      const articlesSection = data.match(/([A-Za-z0-9]+)\s+([0-9,\.]+KG)\s+([0-9]+)/g); 
+      const articlesSection = data.match(
+        /([A-Za-z0-9]+)\s+([0-9,.]+KG)\s+([0-9]+)/g
+      );
       if (articlesSection) {
         const articles = articlesSection.map((line) => {
           const parts = line.trim().split(/\s+/);
@@ -81,8 +89,10 @@ function UserBl() {
         });
         parsedData.articles = articles;
       }
-  
-      return parsedData.Referance && parsedData.codeClient && parsedData.articles
+
+      return parsedData.Referance &&
+        parsedData.codeClient &&
+        parsedData.articles
         ? parsedData
         : null;
     } catch (err) {
@@ -90,7 +100,7 @@ function UserBl() {
       return null;
     }
   };
-  
+
   const checkIfBlExists = async (parsedData) => {
     try {
       const response = await axios.get(
@@ -106,17 +116,22 @@ function UserBl() {
   };
 
   const handleConfirm = async () => {
-    if (!etatChauffeur && !blData) {
-      alert("Veuillez sélectionner un 'État' pour le chauffeur.");
-      return;
-    }
-
     const updatedData = blData
-      ? {
-          etatLivreur,
-          dateLivreur: new Date(),
-          $addToSet: { users: user._id },
-        }
+      ? blData.etatLivreur !== null && blData.etatLivreur !== undefined
+        ? {
+            livraison: {
+              dateLivraisonClient: new Date(),
+              etatLivraison,
+              confirmation,
+              blId: blData._id,
+              userId: user._id,
+            },
+          }
+        : {
+            etatLivreur,
+            dateLivreur: new Date(),
+            $addToSet: { users: user._id },
+          }
       : {
           ref: scanResult.Referance,
           codeClient: scanResult.codeClient,
@@ -128,17 +143,47 @@ function UserBl() {
 
     try {
       const response = blData
-        ? await axios.put(`http://localhost:3000/bl/${blData.ref}`, updatedData)
+        ? blData.etatLivreur !== null && blData.etatLivreur !== undefined
+          ? await axios.post("http://localhost:3000/livraison", updatedData)
+          : await axios.put(
+              `http://localhost:3000/bl/${blData.ref}`,
+              updatedData
+            )
         : await axios.post("http://localhost:3000/bl", updatedData);
 
       setBlData(response.data);
-      alert("Livraison confirmée avec succès!");
       closeModal();
     } catch (error) {
       console.error(
         "Erreur lors de la mise à jour ou de la création du BL:",
         error
       );
+    }
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setConfirmation(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setConfirmation(null);
+    }
+  };
+
+  const handleImageUploadReclamation = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setReclamationImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setReclamationImage(null);
     }
   };
 
@@ -165,9 +210,18 @@ function UserBl() {
 
       <label className="block mt-4">État:</label>
       <select
-        value={blData ? etatLivreur : etatChauffeur}
+        value={
+          blData
+            ? blData.etatLivreur !== null && blData.etatLivreur !== undefined
+              ? etatLivraison
+              : etatLivreur
+            : etatChauffeur
+        }
         onChange={(e) => {
-          if (blData) setEtatLivreur(e.target.value);
+          if (blData)
+            if (blData.etatLivreur !== null && blData.etatLivreur !== undefined)
+              setEtatLivraison(e.target.value);
+            else setEtatLivreur(e.target.value);
           else setEtatChauffeur(e.target.value);
         }}
         className="border p-2 mt-2 bg-gray-700 text-white"
@@ -178,6 +232,28 @@ function UserBl() {
         <option value="Bon">Bon</option>
         <option value="Mal">Mal</option>
       </select>
+
+      {blData &&
+        (blData.etatLivreur !== null && blData.etatLivreur !== undefined ? (
+          <div>
+            <label className="block mt-4">
+              Télécharger une image pour confirmation:
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              required
+              id="confirmation"
+              onChange={handleImageUpload}
+              className="mt-2 w-full text-white bg-gray-700 border p-2"
+            />
+            {confirmation && (
+              <p className="text-green-500 mt-2">Image chargée avec succès!</p>
+            )}
+          </div>
+        ) : (
+          <></>
+        ))}
 
       <button
         className="bg-blue-800 text-white py-2 px-4 rounded mt-4"
@@ -192,20 +268,20 @@ function UserBl() {
     e.preventDefault();
 
     const reclamationData = {
-      type: e.target.type.value,
-      refArticle: e.target.refArticle.value,
-      poid: e.target.poid.value,
-      nombre: e.target.nombre.value,
-      justification: e.target.justification.value,
-      etat: e.target.etat.value,
-      blId: blData?._id, // Assuming blData holds the BL information
-      userId: user._id,
+      type: reclamationType || null,
+      refArticle: e.target.refArticle.value || null,
+      poid: e.target.poid.value || null,
+      nombre: e.target.nombre.value || null,
+      justification: reclamationImage || null,
+      etat: e.target.etat.value || null,
+      blId: blData?._id || null,
+      userId: user._id || null,
     };
 
     try {
       await axios.post("http://localhost:3000/reclamation", reclamationData);
       alert("Réclamation soumise avec succès!");
-      closeModal(); // Close the modal after submission
+      closeModal();
     } catch (error) {
       console.error("Erreur lors de la soumission de la réclamation:", error);
     }
@@ -214,13 +290,19 @@ function UserBl() {
   const renderReclamationForm = () => (
     <form className="text-white" onSubmit={handleReclamationSubmit}>
       <label className="block">Type:</label>
-      <input
-        type="text"
+      <select
         name="type"
         required
         className="border p-2 mt-2 w-full bg-gray-700 text-white"
-      />
-
+        value={reclamationType}
+        onChange={(e) => setReclamationType(e.target.value)}
+      >
+        <option value="" disabled>
+          Sélectionner le type
+        </option>
+        <option value="etat">État</option>
+        <option value="quantite">Quantité</option>
+      </select>
       <label className="block mt-4">Référence Article:</label>
       <input
         type="text"
@@ -228,43 +310,60 @@ function UserBl() {
         required
         className="border p-2 mt-2 w-full bg-gray-700 text-white"
       />
+      {reclamationType === "etat" && (
+        <>
+          <label className="block mt-4">État:</label>
+          <input
+            type="text"
+            name="etat"
+            required
+            className="border p-2 mt-2 w-full bg-gray-700 text-white"
+          />
 
-      <label className="block mt-4">POID:</label>
-      <input
-        type="text"
-        name="poid"
-        required
-        className="border p-2 mt-2 w-full bg-gray-700 text-white"
-      />
+          <label className="block mt-4">Justification (Image):</label>
+          <input
+            type="file"
+            required
+            onChange={handleImageUploadReclamation}
+            className="mt-2 w-full bg-gray-700 text-white border p-2"
+          />
+        </>
+      )}
 
-      <label className="block mt-4">Nombre:</label>
-      <input
-        type="number"
-        name="nombre"
-        required
-        className="border p-2 mt-2 w-full bg-gray-700 text-white"
-      />
+      {reclamationType === "quantite" && (
+        <>
+          <label className="block mt-4">POID:</label>
+          <input
+            type="text"
+            name="poid"
+            required
+            className="border p-2 mt-2 w-full bg-gray-700 text-white"
+          />
 
-      <label className="block mt-4">Justification:</label>
-      <textarea
-        name="justification"
-        required
-        className="border p-2 mt-2 w-full bg-gray-700 text-white"
-      />
+          <label className="block mt-4">Nombre:</label>
+          <input
+            type="number"
+            name="nombre"
+            required
+            className="border p-2 mt-2 w-full bg-gray-700 text-white"
+          />
 
-      <label className="block mt-4">État:</label>
-      <input
-        type="text"
-        name="etat"
-        required
-        className="border p-2 mt-2 w-full bg-gray-700 text-white"
-      />
+          <label className="block mt-4">Justification (Image):</label>
+          <input
+            type="file"
+            accept="image/*"
+            required
+            onChange={handleImageUploadReclamation}
+            className="mt-2 w-full bg-gray-700 text-white border p-2"
+          />
+        </>
+      )}
 
       <button
         type="submit"
         className="bg-red-800 text-white py-2 px-4 rounded mt-4"
       >
-        Soumettre la Réclamation
+        Soumettre
       </button>
     </form>
   );

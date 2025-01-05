@@ -64,12 +64,14 @@ function ResponsableBl() {
       const parsedData = {};
       const refMatch = data.match(/refBL\s*:\s*([^\s]+)/i); // Adjusted regex for refBL
       const clientCodeMatch = data.match(/codeClient\s*:\s*([^\s]+)/i); // Adjusted regex for codeClient
-  
+
       if (refMatch) parsedData.Referance = refMatch[1];
       if (clientCodeMatch) parsedData.codeClient = clientCodeMatch[1];
-  
+
       // Matching articles in the format: PTEVD2 1,62KG 4
-      const articlesSection = data.match(/([A-Za-z0-9]+)\s+([0-9,\.]+KG)\s+([0-9]+)/g); 
+      const articlesSection = data.match(
+        /([A-Za-z0-9]+)\s+([0-9,.]+KG)\s+([0-9]+)/g
+      );
       if (articlesSection) {
         const articles = articlesSection.map((line) => {
           const parts = line.trim().split(/\s+/);
@@ -81,8 +83,10 @@ function ResponsableBl() {
         });
         parsedData.articles = articles;
       }
-  
-      return parsedData.Referance && parsedData.codeClient && parsedData.articles
+
+      return parsedData.Referance &&
+        parsedData.codeClient &&
+        parsedData.articles
         ? parsedData
         : null;
     } catch (err) {
@@ -90,7 +94,6 @@ function ResponsableBl() {
       return null;
     }
   };
-  
 
   const checkIfBlExists = async (parsedData) => {
     try {
