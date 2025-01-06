@@ -38,7 +38,7 @@ export default function Sidebar() {
             to="/admin/dashboard"
             onClick={() => handleSetActiveRoute("/admin/dashboard")}
           >
-            Bon Livraison
+            GM Livraison
           </Link>
 
           <div className="md:hidden items-center flex flex-wrap list-none">
@@ -61,8 +61,8 @@ export default function Sidebar() {
                     to="/admin/dashboard"
                     onClick={() => handleSetActiveRoute("/admin/dashboard")}
                   >
-                    Bon Livraison
-                  </Link>
+            GM Livraison
+            </Link>
                 </div>
                 <div className="w-6/12 flex justify-end">
                   <button

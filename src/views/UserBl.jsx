@@ -300,8 +300,8 @@ function UserBl() {
         <option value="" disabled>
           Sélectionner le type
         </option>
-        <option value="etat">État</option>
-        <option value="quantite">Quantité</option>
+        <option value="Etat">État</option>
+        <option value="Quantite">Quantité</option>
       </select>
       <label className="block mt-4">Référence Article:</label>
       <input
@@ -310,7 +310,7 @@ function UserBl() {
         required
         className="border p-2 mt-2 w-full bg-gray-700 text-white"
       />
-      {reclamationType === "etat" && (
+      {reclamationType === "Etat" && (
         <>
           <label className="block mt-4">État:</label>
           <input
@@ -330,7 +330,7 @@ function UserBl() {
         </>
       )}
 
-      {reclamationType === "quantite" && (
+      {reclamationType === "Quantite" && (
         <>
           <label className="block mt-4">POID:</label>
           <input

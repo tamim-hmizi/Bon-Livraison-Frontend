@@ -22,19 +22,20 @@ export default function Index() {
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
               backgroundImage:
-                "url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80')",
+                "url('https://scontent.ftun7-1.fna.fbcdn.net/v/t39.30808-6/417464935_275617385547524_4254739153366842668_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=UNKkN7N6b3sQ7kNvgH6voXc&_nc_oc=AdjrOmNaHL6v-87YXO5jXeX3Pgy6Vp2Lg9zsmGBI40UEajCJUKAKn4-leibSbL7Utyk&_nc_zt=23&_nc_ht=scontent.ftun7-1.fna&_nc_gid=ACp6jjKXRyVVCC4HXaDAwW1&oh=00_AYBEQMOhiNFOA2CuikQScHE4iQLOEa0kRPmVLaPpc0guBw&oe=678173AF')",
             }}
+
+           
           >
             <div className="w-full h-full absolute bg-black bg-opacity-70"></div>
           </div>
           <div className="container relative mx-auto text-center">
             <div className="w-full lg:w-6/12 px-4 mx-auto">
               <h1 className="text-white font-bold text-5xl">
-                Your story starts with us.
+                Expérience Client unique avec nos gammes de points  de Ventes .
               </h1>
               <p className="mt-4 text-lg text-gray-300">
-                Build stunning landing pages with Notus React, leveraging the
-                power of Tailwind CSS and FontAwesome.
+                Livraison Rapide et Garantie 
               </p>
             </div>
           </div>
@@ -46,24 +47,24 @@ export default function Index() {
             <div className="flex flex-wrap">
               {[
                 {
-                  icon: "fas fa-award",
-                  title: "Awarded Agency",
+                  icon: "fas fa-retweet",
+                  title: "Un Grand Nombre Des Produits Fournis",
                   description:
-                    "We provide exceptional service and have been recognized for our work.",
+                    "Notre entreprise offre une large gamme des produits aquacoles pour répondre à tous vos besoins de production, de la conception à la gestion de la qualité.",
                   bgColor: "bg-red-500",
                 },
                 {
-                  icon: "fas fa-retweet",
-                  title: "Free Revisions",
+                  icon: "fas fa-award",
+                  title: "14+ Années D'expérience Professionnelle",
                   description:
-                    "Our services include multiple free revisions to ensure your satisfaction.",
+                    "Notre entreprise s'engage à assurer un environnement aquacole de qualité pour offrir une production saine et durable, de manière efficace et rapide.",
                   bgColor: "bg-blue-500",
                 },
                 {
                   icon: "fas fa-fingerprint",
-                  title: "Verified Company",
+                  title: "Un Grand Nombre De Clients Satisfaits",
                   description:
-                    "Trusted by thousands, our company has a proven track record.",
+                    "Depuis de nombreuses années, nous travaillons pour améliorer nos compétences et élargir notre champ d'expertise afin de répondre à vos besoins.",
                   bgColor: "bg-green-500",
                 },
               ].map((feature, index) => (
@@ -99,16 +100,17 @@ export default function Index() {
                   <div className="text-blue-600 p-3 inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-blue-300">
                     <i className="fas fa-rocket text-xl"></i>
                   </div>
-                  <h3 className="text-3xl font-bold mb-2">A growing company</h3>
+                  <h3 className="text-3xl font-bold mb-2">Nous produisons pour votre bien-être et votre satisfaction</h3>
                   <p className="text-lg text-gray-600 leading-relaxed">
-                    Join us on our journey as we scale new heights in providing
-                    tailored solutions for businesses of all sizes.
+                  Le Groupe Méditerranée Aquaculture a été fondé en 2009 par M. Chebil MEDIMEGH et ses fils, capitalisant sur une expérience de plus de 30 ans dans le monde des affaires. Fort de son expertise, M. Chebil MEDIMEGH a entrepris de diversifier ses investissements en se tournant vers le domaine prometteur de l'aquaculture.
+
+Depuis sa création, notre groupe s'est développé et a acquis une position de premier plan dans le secteur aquacole. Notre première réalisation a été la création de Tunisian Teboulba Fish (TTF), une ferme d'élevage qui a contribué à la diversification de notre portefeuille d'activités.
                   </p>
                   <ul className="mt-4 space-y-3">
                     {[
-                      "Carefully crafted components",
-                      "Amazing page examples",
-                      "Dynamic components",
+                      "Élevage  Expert ",
+                      "Poisson  Premium ",
+                      "Professionnels  vérifiés",
                     ].map((item, index) => (
                       <li key={index} className="flex items-center">
                         <div className="text-blue-600 mr-3">
@@ -124,7 +126,7 @@ export default function Index() {
                 <img
                   alt="Team"
                   className="rounded-lg shadow-lg"
-                  src="https://images.unsplash.com/photo-1555212697-194d092e3b8f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                  src="https://www.gm.com.tn/images/a-propos-img.webp"
                 />
               </div>
             </div>

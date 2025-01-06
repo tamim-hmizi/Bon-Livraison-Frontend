@@ -5,6 +5,8 @@ import { FaTrashAlt } from "react-icons/fa";
 export default function CardTable() {
   const [bls, setBls] = useState([]);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [blsPerPage] = useState(5);
 
   useEffect(() => {
     // Fetch BLs from the backend
@@ -40,6 +42,14 @@ export default function CardTable() {
     const date = new Date(dateString);
     return date.toLocaleString(); // Will display date and time
   };
+
+  // Get current bls for the current page
+  const indexOfLastBl = currentPage * blsPerPage;
+  const indexOfFirstBl = indexOfLastBl - blsPerPage;
+  const currentBls = bls.slice(indexOfFirstBl, indexOfLastBl);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <>
@@ -88,7 +98,7 @@ export default function CardTable() {
               </tr>
             </thead>
             <tbody>
-              {bls.map((bl) => (
+              {currentBls.map((bl) => (
                 <tr key={bl._id} className="bg-gray-800 hover:bg-gray-700">
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm p-4 text-left">
                     <span className="ml-3 font-bold text-white">{bl.ref}</span>
@@ -126,6 +136,28 @@ export default function CardTable() {
               ))}
             </tbody>
           </table>
+        </div>
+
+        {/* Pagination controls */}
+        <div className="px-4 py-3">
+          <nav>
+            <ul className="flex justify-center space-x-2">
+              {Array.from({ length: Math.ceil(bls.length / blsPerPage) }, (_, index) => (
+                <li key={index + 1}>
+                  <button
+                    onClick={() => paginate(index + 1)}
+                    className={`px-4 py-2 rounded ${
+                      currentPage === index + 1
+                        ? "bg-blue-500 text-white"
+                        : "bg-gray-700 text-white"
+                    }`}
+                  >
+                    {index + 1}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
       </div>
     </>

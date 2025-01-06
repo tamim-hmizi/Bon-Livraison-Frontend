@@ -6,7 +6,7 @@ export default function FooterAdmin() {
         <div className="flex flex-wrap items-center md:justify-between justify-center">
           <div className="w-full md:w-4/12 px-4">
             <div className="text-sm text-gray-500 font-semibold py-1 text-center md:text-left">
-              Copyright © {new Date().getFullYear()} Bon Livraison
+              Copyright © {new Date().getFullYear()} GM Livraison
             </div>
           </div>
         </div>
