@@ -16,6 +16,8 @@ function ResponsableBl() {
   const [blData, setBlData] = useState(null);
   const [etatDepot, setEtatDepot] = useState("");
   const [isReclamationFormOpen, setIsReclamationFormOpen] = useState(false);
+  const [reclamationImage, setReclamationImage] = useState(null);
+  const [reclamationType, setReclamationType] = useState("");
   const user = useSelector((state) => state.user.currentUser);
   const navigate = useNavigate();
 
@@ -134,6 +136,19 @@ function ResponsableBl() {
     }
   };
 
+  const handleImageUploadReclamation = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setReclamationImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setReclamationImage(null);
+    }
+  };
+
   const formatScanData = (data) => (
     <div>
       <p>
@@ -181,20 +196,20 @@ function ResponsableBl() {
     e.preventDefault();
 
     const reclamationData = {
-      type: e.target.type.value,
-      refArticle: e.target.refArticle.value,
-      poid: e.target.poid.value,
-      nombre: e.target.nombre.value,
-      justification: e.target.justification.value,
-      etat: e.target.etat.value,
-      blId: blData?._id, // Assuming blData holds the BL information
-      userId: user._id,
+      type: reclamationType || null,
+      refArticle: e.target.refArticle.value || null,
+      poid: e.target.poid ? e.target.poid.value || null : null,
+      nombre: e.target.nombre ? e.target.nombre.value || null : null,
+      etat: e.target.etat ? e.target.etat.value || null : null,
+      justification: reclamationImage || null,
+      blId: blData?._id || null,
+      userId: user._id || null,
     };
 
     try {
       await axios.post("http://localhost:3000/reclamation", reclamationData);
       alert("Réclamation soumise avec succès!");
-      closeModal(); // Close the modal after submission
+      closeModal();
     } catch (error) {
       console.error("Erreur lors de la soumission de la réclamation:", error);
     }
@@ -203,13 +218,19 @@ function ResponsableBl() {
   const renderReclamationForm = () => (
     <form className="text-white" onSubmit={handleReclamationSubmit}>
       <label className="block">Type:</label>
-      <input
-        type="text"
+      <select
         name="type"
         required
         className="border p-2 mt-2 w-full bg-gray-700 text-white"
-      />
-
+        value={reclamationType}
+        onChange={(e) => setReclamationType(e.target.value)}
+      >
+        <option value="" disabled>
+          Sélectionner le type
+        </option>
+        <option value="Etat">État</option>
+        <option value="Quantite">Quantité</option>
+      </select>
       <label className="block mt-4">Référence Article:</label>
       <input
         type="text"
@@ -217,43 +238,60 @@ function ResponsableBl() {
         required
         className="border p-2 mt-2 w-full bg-gray-700 text-white"
       />
+      {reclamationType === "Etat" && (
+        <>
+          <label className="block mt-4">État:</label>
+          <input
+            type="text"
+            name="etat"
+            required
+            className="border p-2 mt-2 w-full bg-gray-700 text-white"
+          />
 
-      <label className="block mt-4">POID:</label>
-      <input
-        type="text"
-        name="poid"
-        required
-        className="border p-2 mt-2 w-full bg-gray-700 text-white"
-      />
+          <label className="block mt-4">Justification (Image):</label>
+          <input
+            type="file"
+            required
+            onChange={handleImageUploadReclamation}
+            className="mt-2 w-full bg-gray-700 text-white border p-2"
+          />
+        </>
+      )}
 
-      <label className="block mt-4">Nombre:</label>
-      <input
-        type="number"
-        name="nombre"
-        required
-        className="border p-2 mt-2 w-full bg-gray-700 text-white"
-      />
+      {reclamationType === "Quantite" && (
+        <>
+          <label className="block mt-4">POID:</label>
+          <input
+            type="text"
+            name="poid"
+            required
+            className="border p-2 mt-2 w-full bg-gray-700 text-white"
+          />
 
-      <label className="block mt-4">Justification:</label>
-      <textarea
-        name="justification"
-        required
-        className="border p-2 mt-2 w-full bg-gray-700 text-white"
-      />
+          <label className="block mt-4">Nombre:</label>
+          <input
+            type="number"
+            name="nombre"
+            required
+            className="border p-2 mt-2 w-full bg-gray-700 text-white"
+          />
 
-      <label className="block mt-4">État:</label>
-      <input
-        type="text"
-        name="etat"
-        required
-        className="border p-2 mt-2 w-full bg-gray-700 text-white"
-      />
+          <label className="block mt-4">Justification (Image):</label>
+          <input
+            type="file"
+            accept="image/*"
+            required
+            onChange={handleImageUploadReclamation}
+            className="mt-2 w-full bg-gray-700 text-white border p-2"
+          />
+        </>
+      )}
 
       <button
         type="submit"
         className="bg-red-800 text-white py-2 px-4 rounded mt-4"
       >
-        Soumettre la Réclamation
+        Soumettre
       </button>
     </form>
   );

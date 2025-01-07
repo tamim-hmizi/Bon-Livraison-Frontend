@@ -116,16 +116,15 @@ function UserBl() {
   };
 
   const handleConfirm = async () => {
+    console.log(blData, user._id);
     const updatedData = blData
       ? blData.etatLivreur !== null && blData.etatLivreur !== undefined
         ? {
-            livraison: {
-              dateLivraisonClient: new Date(),
-              etatLivraison,
-              confirmation,
-              blId: blData._id,
-              userId: user._id,
-            },
+            dateLivraisonClient: new Date(),
+            etatLivraison,
+            confirmation,
+            blId: blData._id,
+            userId: user._id,
           }
         : {
             etatLivreur,
@@ -270,9 +269,9 @@ function UserBl() {
     const reclamationData = {
       type: reclamationType || null,
       refArticle: e.target.refArticle.value || null,
-      poid: e.target.poid ? e.target.poid.value || null : null,  // Vérification de l'existence de poid
-      nombre: e.target.nombre ? e.target.nombre.value || null : null,  // Vérification de l'existence de nombre
-      etat: e.target.etat ? e.target.etat.value || null : null, // Vérification de l'existence de etat
+      poid: e.target.poid ? e.target.poid.value || null : null,
+      nombre: e.target.nombre ? e.target.nombre.value || null : null,
+      etat: e.target.etat ? e.target.etat.value || null : null,
       justification: reclamationImage || null,
       blId: blData?._id || null,
       userId: user._id || null,
@@ -418,7 +417,7 @@ function UserBl() {
                   )}
                   {error && <p className="text-red-500">{error}</p>}
                 </div>
-                {!isReclamationFormOpen && scanResult && (
+                {!isReclamationFormOpen && scanResult && blData && (
                   <button
                     className="bg-red-800 text-white py-2 px-4 rounded mt-4"
                     onClick={() => setIsReclamationFormOpen(true)}
