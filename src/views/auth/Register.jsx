@@ -73,28 +73,26 @@ export default function Register() {
   return (
     <div className="container mx-auto px-4 h-full">
       <div className="flex content-center items-center justify-center h-full">
-        <div className="w-full lg:w-6/12 px-4">
-          <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-200 border-0">
+        <div className="w-full lg:w-4/12 px-4"> {/* Réduction de la largeur */}
+          <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg border border-blue-300">
+            {/* Arrière-plan gris supprimé, bordure bleu ciel ajoutée */}
             <div className="rounded-t mb-0 px-6 py-6">
               <div className="text-center mb-3">
-                <h6 className="text-gray-500 text-sm font-bold">Inscription</h6>
+                <h6 className="block uppercase text-white text-xs font-bold mb-2">Inscription</h6>
               </div>
               <hr className="mt-6 border-b-1 border-blueGray-300" />
             </div>
             <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
               <form onSubmit={handleSubmit}>
                 <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-gray-600 text-xs font-bold mb-2"
-                    htmlFor="name"
-                  >
+                  <label className="block uppercase text-white text-xs font-bold mb-2" htmlFor="name">
                     Prénom
                   </label>
                   <input
                     type="text"
                     id="name"
                     name="name"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    className="border px-3 py-3 placeholder-blueGray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     placeholder="Prénom"
                     value={formData.name}
                     onChange={handleInputChange}
@@ -102,17 +100,14 @@ export default function Register() {
                 </div>
 
                 <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-gray-600 text-xs font-bold mb-2"
-                    htmlFor="lastName"
-                  >
+                  <label className="block uppercase text-white text-xs font-bold mb-2" htmlFor="lastName">
                     Nom de famille
                   </label>
                   <input
                     type="text"
                     id="lastName"
                     name="lastName"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    className="border px-3 py-3 placeholder-blueGray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     placeholder="Nom de famille"
                     value={formData.lastName}
                     onChange={handleInputChange}
@@ -120,17 +115,14 @@ export default function Register() {
                 </div>
 
                 <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-gray-600 text-xs font-bold mb-2"
-                    htmlFor="email"
-                  >
+                  <label className="block uppercase text-white text-xs font-bold mb-2" htmlFor="email">
                     Email
                   </label>
                   <input
                     type="email"
                     id="email"
                     name="email"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    className="border px-3 py-3 placeholder-blueGray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     placeholder="Email"
                     value={formData.email}
                     onChange={handleInputChange}
@@ -138,17 +130,14 @@ export default function Register() {
                 </div>
 
                 <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-gray-600 text-xs font-bold mb-2"
-                    htmlFor="password"
-                  >
+                  <label className="block uppercase text-white text-xs font-bold mb-2" htmlFor="password">
                     Mot de passe
                   </label>
                   <input
                     type="password"
                     id="password"
                     name="password"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    className="border px-3 py-3 placeholder-blueGray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     placeholder="Mot de passe"
                     value={formData.password}
                     onChange={handleInputChange}
@@ -156,17 +145,14 @@ export default function Register() {
                 </div>
 
                 <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-gray-600 text-xs font-bold mb-2"
-                    htmlFor="number"
-                  >
+                  <label className="block uppercase text-white text-xs font-bold mb-2" htmlFor="number">
                     Numéro de téléphone
                   </label>
                   <input
                     type="text"
                     id="number"
                     name="number"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    className="border px-3 py-3 placeholder-blueGray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     placeholder="Numéro de téléphone"
                     value={formData.number}
                     onChange={handleInputChange}
@@ -174,10 +160,7 @@ export default function Register() {
                 </div>
 
                 <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-gray-600 text-xs font-bold mb-2"
-                    htmlFor="image"
-                  >
+                  <label className="block uppercase text-white text-xs font-bold mb-2" htmlFor="image">
                     Photo de profil
                   </label>
                   <input
@@ -186,13 +169,13 @@ export default function Register() {
                     name="image"
                     accept="image/*"
                     onChange={handleImageUpload}
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    className="border px-3 py-3 placeholder-blueGray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   />
                 </div>
 
                 <div className="text-center mt-6">
                   <button
-                    className="bg-gray-800 text-white active:bg-gray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                    className="bg-blue-500 text-white text-sm font-bold uppercase px-6 py-3 rounded shadow hover:bg-blue-400 focus:outline-none w-full ease-linear transition-all duration-150"
                     type="submit"
                   >
                     Créer un compte
@@ -203,8 +186,8 @@ export default function Register() {
           </div>
           <div className="flex flex-wrap mt-6 relative">
             <div className="w-full text-center">
-              <Link className="text-gray-200" to="/auth/login">
-                Connecter-vous
+              <Link className="text-blue-500" to="/auth/login">
+                Connectez-vous
               </Link>
             </div>
           </div>

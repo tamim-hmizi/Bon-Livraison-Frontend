@@ -270,10 +270,10 @@ function UserBl() {
     const reclamationData = {
       type: reclamationType || null,
       refArticle: e.target.refArticle.value || null,
-      poid: e.target.poid.value || null,
-      nombre: e.target.nombre.value || null,
+      poid: e.target.poid ? e.target.poid.value || null : null,  // Vérification de l'existence de poid
+      nombre: e.target.nombre ? e.target.nombre.value || null : null,  // Vérification de l'existence de nombre
+      etat: e.target.etat ? e.target.etat.value || null : null, // Vérification de l'existence de etat
       justification: reclamationImage || null,
-      etat: e.target.etat.value || null,
       blId: blData?._id || null,
       userId: user._id || null,
     };
