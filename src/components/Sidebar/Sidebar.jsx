@@ -109,6 +109,17 @@ export default function Sidebar() {
                   Gestion Bon Livraison
                </Link>
               </li>
+
+              <li className="items-center">
+                <Link
+                  className={linkClass("/admin/tableReclam")}
+                  to="/admin/tableReclam"
+                  onClick={() => handleSetActiveRoute("/admin/tableReclam")}
+                >
+                  <i className={`${iconClass("/admin/tableReclam")} fa-table`}></i>{" "}
+                  Gestion Reclamations
+               </Link>
+              </li>
               
             </ul>
           </div>

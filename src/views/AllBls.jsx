@@ -204,11 +204,31 @@ function AllBls() {
         )}
       </div>
 
+
+       {/* Pagination Controls */}
+       <div className="flex justify-center mt-6 space-x-4">
+        <button
+          onClick={() => setCurrentPage(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="bg-gray-800 p-3 rounded-lg text-white"
+        >
+          Précédent
+        </button>
+        <span className="text-white text-lg">{currentPage} / {totalPages}</span>
+        <button
+          onClick={() => setCurrentPage(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="bg-gray-800 p-3 rounded-lg text-white "
+        >
+          Suivant
+        </button>
+      </div>
+
       {/* Button to find and display the most faithful client */}
       <div className="mt-6 flex justify-center">
         <button
           onClick={findMostFaithfulClient}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg"
+          className="bg-blue-800 text-white py-2 px-4 rounded w-full"
         >
           Voir le code client le plus fidèle
         </button>
@@ -226,7 +246,7 @@ function AllBls() {
       <div className="mt-6 flex justify-center">
         <button
           onClick={fetchClientArticles}
-          className="px-4 py-2 bg-green-600 text-white rounded-lg"
+          className="bg-blue-800 text-white py-2 px-4 rounded w-full"
         >
           Voir les articles clients des 4 dernières semaines
         </button>
@@ -261,7 +281,7 @@ function AllBls() {
       <div className="mt-6 flex justify-center">
         <button
           onClick={fetchClientArticlesByFrequency}
-          className="px-4 py-2 bg-yellow-600 text-white rounded-lg"
+          className="bg-blue-800 text-white py-2 px-4 rounded w-full"
         >
           Voir les articles triés par fréquence
         </button>
@@ -282,7 +302,7 @@ function AllBls() {
                 <ul className="mt-2">
                   {client.articles.map((article, idx) => (
                     <li key={idx} className="text-center">
-                      {article.articleRef} - {article.frequency} fois 
+                      {article.articleRef} - {article.frequency} fois
                     </li>
                   ))}
                 </ul>
@@ -292,24 +312,7 @@ function AllBls() {
         </div>
       )}
 
-      {/* Pagination controls */}
-      <div className="mt-8 flex justify-between items-center">
-        <button
-          onClick={() => setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))}
-          className="px-4 py-2 bg-gray-600 text-white rounded-lg"
-        >
-          Précédent
-        </button>
-        <span>
-          Page {currentPage} sur {totalPages}
-        </span>
-        <button
-          onClick={() => setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages))}
-          className="px-4 py-2 bg-gray-600 text-white rounded-lg"
-        >
-          Suivant
-        </button>
-      </div>
+     
     </div>
   );
 }

@@ -84,10 +84,10 @@ export default function CardTable() {
                   Date Depot
                 </th>
                 <th className="px-6 py-3 text-lg font-semibold text-left bg-gray-700 text-white border-gray-600">
-                  Date Livreur
+                  Etat Depot
                 </th>
                 <th className="px-6 py-3 text-lg font-semibold text-left bg-gray-700 text-white border-gray-600">
-                  Etat Depot
+                  Date Livreur
                 </th>
                 <th className="px-6 py-3 text-lg font-semibold text-left bg-gray-700 text-white border-gray-600">
                   Etat Livreur
@@ -116,10 +116,10 @@ export default function CardTable() {
                     {formatDate(bl.dateDepot)}
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm p-4 text-white">
-                    {formatDate(bl.dateLivreur)}
+                    {bl.etatDepot}
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm p-4 text-white">
-                    {bl.etatDepot}
+                    {formatDate(bl.dateLivreur)}
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm p-4 text-white">
                     {bl.etatLivreur}

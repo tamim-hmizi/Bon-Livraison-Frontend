@@ -85,6 +85,9 @@ export default function CardTable() {
                   Téléphone
                 </th>
                 <th className="px-6 py-3 text-lg font-semibold text-left bg-gray-700 text-white border-gray-600">
+                  Role
+                </th>
+                <th className="px-6 py-3 text-lg font-semibold text-left bg-gray-700 text-white border-gray-600">
                   Actions
                 </th>
               </tr>
@@ -110,7 +113,7 @@ export default function CardTable() {
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm p-4 text-white">
                     {user.phone}
                   </td>
-                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm p-4 text-right">
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm p-4 text-white">
                     <button
                       className={`w-32 px-4 py-2 mr-5 rounded-full text-white ${
                         user.role === "user"
@@ -121,9 +124,11 @@ export default function CardTable() {
                     >
                       {user.role === "user" ? "Utilisateur" : "Responsable"}
                     </button>
-
+                    </td>
+                    
+                    <td>
                     <button
-                      className="text-red-500 hover:text-red-700"
+                      className="text-red-500 hover:text-red-700  border-t-0 px-6 align-middle"
                       onClick={() => deleteUser(user._id)}
                     >
                       <FaTrashAlt className="inline mr-2" />

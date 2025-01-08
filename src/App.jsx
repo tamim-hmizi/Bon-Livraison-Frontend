@@ -11,6 +11,7 @@ import "./index.css";
 import Dashboard from "./views/admin/Dashboard";
 import Tables from "./views/admin/Tables";
 import TableBl from "./views/admin/TableBl";
+import TableReclam from "./views/admin/TableReclam";
 
 import Login from "./views/auth/Login";
 import Register from "./views/auth/Register";
@@ -27,6 +28,8 @@ function App() {
           <Route path="dashboard/*" element={<Dashboard />} />
           <Route path="tables" element={<Tables />} />
           <Route path="tablebl" element={<TableBl />} />
+          <Route path="tableReclam" element={<TableReclam />} />
+
         </Route>
         <Route path="/auth/*" element={<Auth />}>
           <Route path="login" element={<Login />} />
