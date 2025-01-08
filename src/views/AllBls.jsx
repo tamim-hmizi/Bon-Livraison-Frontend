@@ -204,25 +204,28 @@ function AllBls() {
         )}
       </div>
 
+{/* Pagination Controls */}
+<div className="flex justify-center mt-6 space-x-4">
+  <button
+    onClick={() => setCurrentPage(currentPage - 1)}
+    disabled={currentPage === 1}
+    className="bg-gray-800 p-3 rounded-lg text-white w-full max-w-xs"
+  >
+    Précédent
+  </button>
+  <span className="bg-gray-800 p-3 rounded-lg text-white w-full max-w-xs text-center">
+    {currentPage} / {totalPages}
+  </span>
+  <button
+    onClick={() => setCurrentPage(currentPage + 1)}
+    disabled={currentPage === totalPages}
+    className="bg-gray-800 p-3 rounded-lg text-white w-full max-w-xs"
+  >
+    Suivant
+  </button>
+</div>
 
-       {/* Pagination Controls */}
-       <div className="flex justify-center mt-6 space-x-4">
-        <button
-          onClick={() => setCurrentPage(currentPage - 1)}
-          disabled={currentPage === 1}
-          className="bg-gray-800 p-3 rounded-lg text-white"
-        >
-          Précédent
-        </button>
-        <span className="text-white text-lg">{currentPage} / {totalPages}</span>
-        <button
-          onClick={() => setCurrentPage(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className="bg-gray-800 p-3 rounded-lg text-white "
-        >
-          Suivant
-        </button>
-      </div>
+
 
       {/* Button to find and display the most faithful client */}
       <div className="mt-6 flex justify-center">
@@ -312,7 +315,7 @@ function AllBls() {
         </div>
       )}
 
-     
+
     </div>
   );
 }

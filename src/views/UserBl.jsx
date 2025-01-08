@@ -272,6 +272,8 @@ function UserBl() {
       poid: e.target.poid ? e.target.poid.value || null : null,
       nombre: e.target.nombre ? e.target.nombre.value || null : null,
       etat: e.target.etat ? e.target.etat.value || null : null,
+      depottraite: e.target.depottraite ? e.target.depottraite.value || "Non" : "Non",
+      usinetraite: e.target.usinetraite ? e.target.usinetraite.value || "Non" : "Non",
       justification: reclamationImage || null,
       blId: blData?._id || null,
       userId: user._id || null,

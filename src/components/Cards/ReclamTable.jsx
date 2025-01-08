@@ -94,9 +94,6 @@ export default function ReclamationTable() {
             <thead>
               <tr>
                 <th className="px-6 py-3 text-lg font-semibold text-left bg-gray-700 text-white border-gray-600">
-                Justification
-                </th>
-                <th className="px-6 py-3 text-lg font-semibold text-left bg-gray-700 text-white border-gray-600">
                   Type
                 </th>
                 <th className="px-6 py-3 text-lg font-semibold text-left bg-gray-700 text-white border-gray-600">
@@ -108,7 +105,9 @@ export default function ReclamationTable() {
                 <th className="px-6 py-3 text-lg font-semibold text-left bg-gray-700 text-white border-gray-600">
                   Nombre
                 </th>
-                
+                <th className="px-6 py-3 text-lg font-semibold text-left bg-gray-700 text-white border-gray-600">
+                  Justification
+                </th>
                 <th className="px-6 py-3 text-lg font-semibold text-left bg-gray-700 text-white border-gray-600">
                   Etat
                 </th>

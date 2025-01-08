@@ -204,7 +204,10 @@ function ResponsableBl() {
       justification: reclamationImage || null,
       blId: blData?._id || null,
       userId: user._id || null,
+      depottraite: e.target.depottraite ? e.target.depottraite.value || "Non" : "Non", // Ajout de depottraite
+      usinetraite: e.target.usinetraite ? e.target.usinetraite.value || "Non" : "Non"  // Ajout de usinetraite
     };
+    
 
     try {
       await axios.post("http://localhost:3000/reclamation", reclamationData);
